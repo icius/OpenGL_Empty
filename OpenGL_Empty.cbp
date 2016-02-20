@@ -55,7 +55,6 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Camera.h" />
-		<Unit filename="Shader.h" />
 		<Unit filename="Text.h" />
 		<Unit filename="cookbookogl.h" />
 		<Unit filename="fonts/Arial.ttf" />
