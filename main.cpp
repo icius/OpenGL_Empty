@@ -105,36 +105,9 @@ int main()
 
     GLSLProgram lampShader, floorShader, textShader;
 
-    try {
-       lampShader.compileShader("shaders/lamp.vert");
-       lampShader.compileShader("shaders/lamp.frag");
-       lampShader.link();
-       lampShader.validate();
-    }
-    catch( GLSLProgramException &e ) {
-        cerr << e.what() << endl;   exit(EXIT_FAILURE);
-    }
-
-    try {
-       floorShader.compileShader("shaders/floor.vert");
-       floorShader.compileShader("shaders/floor.frag");
-       floorShader.link();
-       floorShader.validate();
-    }
-    catch( GLSLProgramException &e ) {
-        cerr << e.what() << endl;   exit(EXIT_FAILURE);
-    }
-
-    try {
-       textShader.compileShader("shaders/text.vert");
-       textShader.compileShader("shaders/text.frag");
-       textShader.link();
-       textShader.validate();
-    }
-    catch( GLSLProgramException &e ) {
-        cerr << e.what() << endl;   exit(EXIT_FAILURE);
-    }
-
+    lampShader.init("shaders/lamp.vert","shaders/lamp.frag");
+    floorShader.init("shaders/floor.vert","shaders/floor.frag");
+    textShader.init("shaders/text.vert","shaders/text.frag");
 
     GLfloat planeVertices[] = {
         // Positions          // Normals         // Texture Coords

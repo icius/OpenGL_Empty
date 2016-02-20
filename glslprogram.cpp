@@ -7,7 +7,11 @@ using std::ifstream;
 using std::ios;
 
 #include <sstream>
+#include <string>
+#include <iostream>
 #include <sys/stat.h>
+
+using namespace std;
 
 namespace GLSLShaderInfo {
   struct shader_file_extension {
@@ -15,7 +19,7 @@ namespace GLSLShaderInfo {
     GLSLShader::GLSLShaderType type;
   };
 
-  struct shader_file_extension extensions[] = 
+  struct shader_file_extension extensions[] =
   {
     {".vs", GLSLShader::VERTEX},
     {".vert", GLSLShader::VERTEX},
@@ -25,7 +29,7 @@ namespace GLSLShaderInfo {
     {".tes", GLSLShader::TESS_EVALUATION},
     {".fs", GLSLShader::FRAGMENT},
     {".frag", GLSLShader::FRAGMENT},
-    {".cs", GLSLShader::COMPUTE}   
+    {".cs", GLSLShader::COMPUTE}
   };
 }
 
@@ -50,6 +54,19 @@ GLSLProgram::~GLSLProgram() {
   glDeleteProgram (handle);
 
   delete[] shaderNames;
+}
+
+void GLSLProgram::init(const char* vertexPath, const char* fragmentPath)
+{
+    try {
+       compileShader(vertexPath);
+       compileShader(fragmentPath);
+       link();
+       validate();
+    }
+    catch( GLSLProgramException &e ) {
+        cerr << e.what() << endl;   exit(EXIT_FAILURE);
+    }
 }
 
 void GLSLProgram::compileShader( const char * fileName )
@@ -119,7 +136,7 @@ throw( GLSLProgramException )
   compileShader(code.str(), type, fileName);
 }
 
-void GLSLProgram::compileShader( const string & source, 
+void GLSLProgram::compileShader( const string & source,
     GLSLShader::GLSLShaderType type,
     const char * fileName )
 throw(GLSLProgramException)
@@ -173,7 +190,7 @@ throw(GLSLProgramException)
 void GLSLProgram::link() throw(GLSLProgramException)
 {
   if( linked ) return;
-  if( handle <= 0 ) 
+  if( handle <= 0 )
     throw GLSLProgramException("Program has not been compiled.");
 
   glLinkProgram(handle);
@@ -199,12 +216,12 @@ void GLSLProgram::link() throw(GLSLProgramException)
   } else {
     uniformLocations.clear();
     linked = true;
-  }    
+  }
 }
 
 void GLSLProgram::use() throw(GLSLProgramException)
 {
-  if( handle <= 0 || (! linked) ) 
+  if( handle <= 0 || (! linked) )
     throw GLSLProgramException("Shader has not been linked");
   glUseProgram( handle );
 }
@@ -299,7 +316,7 @@ void GLSLProgram::printActiveUniforms() {
     GLint results[4];
     glGetProgramResourceiv(handle, GL_UNIFORM, i, 4, properties, 4, NULL, results);
 
-    if( results[3] != -1 ) continue;  // Skip uniforms in blocks 
+    if( results[3] != -1 ) continue;  // Skip uniforms in blocks
     GLint nameBufSize = results[0] + 1;
     char * name = new char[nameBufSize];
     glGetProgramResourceName(handle, GL_UNIFORM, i, nameBufSize, NULL, name);
@@ -397,7 +414,7 @@ const char * GLSLProgram::getTypeString( GLenum type ) {
 
 void GLSLProgram::validate() throw(GLSLProgramException)
 {
-  if( ! isLinked() ) 
+  if( ! isLinked() )
     throw GLSLProgramException("Program is not linked");
 
   GLint status;

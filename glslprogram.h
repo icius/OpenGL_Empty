@@ -28,11 +28,11 @@ class GLSLProgramException : public std::runtime_error {
 
 namespace GLSLShader {
   enum GLSLShaderType {
-    VERTEX = GL_VERTEX_SHADER, 
-    FRAGMENT = GL_FRAGMENT_SHADER, 
+    VERTEX = GL_VERTEX_SHADER,
+    FRAGMENT = GL_FRAGMENT_SHADER,
     GEOMETRY = GL_GEOMETRY_SHADER,
-    TESS_CONTROL = GL_TESS_CONTROL_SHADER, 
-    TESS_EVALUATION = GL_TESS_EVALUATION_SHADER, 
+    TESS_CONTROL = GL_TESS_CONTROL_SHADER,
+    TESS_EVALUATION = GL_TESS_EVALUATION_SHADER,
     COMPUTE = GL_COMPUTE_SHADER
   };
 };
@@ -56,9 +56,11 @@ class GLSLProgram
     GLSLProgram();
     ~GLSLProgram();
 
+    void   init(const GLchar* vertexPath, const GLchar* fragmentPath);
+
     void   compileShader( const char *fileName ) throw (GLSLProgramException);
     void   compileShader( const char * fileName, GLSLShader::GLSLShaderType type ) throw (GLSLProgramException);
-    void   compileShader( const string & source, GLSLShader::GLSLShaderType type, 
+    void   compileShader( const string & source, GLSLShader::GLSLShaderType type,
         const char *fileName = NULL ) throw (GLSLProgramException);
 
     void   link() throw (GLSLProgramException);

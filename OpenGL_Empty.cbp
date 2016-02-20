@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Chapter_001" />
+		<Option title="OpenGL_Empty" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -16,7 +16,7 @@
 					<Add option="-g" />
 					<Add directory="/usr/local/include" />
 					<Add directory="/usr/include/freetype2" />
-					<Add directory="../include" />
+					<Add directory="/home/aklaum/Desktop/GLSL_Cookbook/include" />
 				</Compiler>
 				<Linker>
 					<Add library="glfw3" />
@@ -34,7 +34,7 @@
 					<Add library="freetype" />
 					<Add directory="/usr/local/lib" />
 					<Add directory="/usr/lib64" />
-					<Add directory="../lib" />
+					<Add directory="/home/aklaum/Desktop/GLSL_Cookbook/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
