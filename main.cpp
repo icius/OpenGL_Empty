@@ -14,7 +14,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 // GL includes
-//#include "Shader.h"
 #include "glutils.h"
 #include "glslprogram.h"
 #include "Camera.h"
